@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import StopWatch from './StopWatch'; 
 import StopWatchButton from './StopWatchButton';
+import { random } from './random'
 import './App.css';
 
 export default function StopWatchReal() {
@@ -12,6 +13,8 @@ export default function StopWatchReal() {
   const [rotationSec, setRotationSec] = useState<number>(0);
   const [rotationMin, setRotationMin] = useState<number>(0);
   const [rotationHr, setRotationHr] = useState<number>(0);
+  const [randomY, setRandomY] = useState<number[]>([]);
+  const [randomX, setRandomX] = useState<number[]>([]);
 
   const timerRef = useRef<any>(null);
 
@@ -45,14 +48,17 @@ export default function StopWatchReal() {
     }
   }
 
-
+  // Adds the current time to the lap list
   function lap() {
     if (isRunning) {
       addLap((prevLap) => [...prevLap, time]);
+      setRandomY((prevY) => [...prevY, random(-30,35)]);
+      setRandomX((prevX) => [...prevX, random(-30,40)]);
     }
   }
 
 
+  // Sets the rotation of the hands
   useEffect(() => {
     setRotationSec((time % 60) * 6);
     setRotationMin((Math.floor(time/60)%60) * 6)
@@ -71,7 +77,7 @@ export default function StopWatchReal() {
           <StopWatchButton onClick={lap}> Lap </StopWatchButton>
         </div>
         <ol>
-          {lapList.map((lapTime, index) => <li key={index}>{<StopWatch time={lapTime} />}</li>)}
+          {lapList.map((lapTime, index) => <li className='lap' key={index}  style={{top: `${randomY[index]}vh`, left:`${randomX[index]}vw`}}>{<StopWatch time={lapTime} />}</li>)}
         </ol>
       </div>
       <div className='hands'>
