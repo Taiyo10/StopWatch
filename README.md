@@ -1,4 +1,4 @@
-Check it out here: stop-watch-teo-cristante.vercel.app
+Check it out here: [Stopwatch](https://stop-watch-teo-cristante.vercel.app)
 
 A simple stopwatch that displays hh:mm:ss, with a visual analog clock that includes hands for milliseconds, seconds, minutes and hours.
 Stopwatch has the ability to start, pause/resume, reset and lap.
